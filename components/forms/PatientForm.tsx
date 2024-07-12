@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
 import SubmitButton from "../SubmitButton"
+import { useRouter } from "next/navigation"
 
 
 export enum FormFieldType {
@@ -24,6 +25,7 @@ export enum FormFieldType {
 
 const PatientForm = () => {
 
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof UserFormValidation>>({  // Formulario validado por UserFormValidation
@@ -36,8 +38,28 @@ const PatientForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
+    setIsLoading(true)
    
-    console.log(values)
+    try {
+      const userData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+      }
+      
+      // const newUser = await createUser(userData)
+
+      // if (newUser) {
+      //   router.push(`/patients/${newUser.$id}/register`);
+      // }
+
+      console.log(userData);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
   }
 
   return (
