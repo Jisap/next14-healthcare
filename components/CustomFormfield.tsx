@@ -12,16 +12,7 @@ import {
 import { Input } from "./ui/input"
 import { Control } from "react-hook-form"
 import { FormFieldType } from "./forms/PatientForm"
-
-
-const RenderInput = ({ field, props }: { field:any; props: CustomProps }) => {
-  return (
-    <Input 
-      type="text"
-      placeholder="John Doe"
-    />
-  )
-}
+import Image from "next/image"
 
 interface CustomProps {
   control: Control<any>,
@@ -35,8 +26,42 @@ interface CustomProps {
   dateFormat?: string,
   showTimeSelect?: boolean,
   children?: React.ReactNode,
-  renderSkeleton?: (field:any) => React.ReactNode
+  renderSkeleton?: (field: any) => React.ReactNode
 }
+
+const RenderField = ({ field, props }: { field:any; props: CustomProps }) => {
+
+  const { fieldType, iconSrc, iconAlt, placeholder } = props
+
+  switch (fieldType) {
+    case FormFieldType.INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          {iconSrc && (
+            <Image
+              src={iconSrc}
+              alt={iconAlt || 'icon'}
+              height={24}
+              width={24}
+              className="ml-2"
+            />
+          )}
+          <FormControl>
+            <Input
+              placeholder={placeholder}
+              {...field}
+              className="shad-input border-0"
+            />
+          </FormControl>
+        </div>
+      )  
+    
+    default:
+      break;
+  }
+}
+
+
 
 const CustomFormfield = (props:CustomProps) => {
 
@@ -53,7 +78,7 @@ const CustomFormfield = (props:CustomProps) => {
             <FormLabel>{label}</FormLabel>
           )}
 
-          <RenderInput 
+          <RenderField 
             field={field}
             props={props}
           />

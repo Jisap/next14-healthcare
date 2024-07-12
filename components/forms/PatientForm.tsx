@@ -1,10 +1,12 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, useForm } from "react-hook-form"
+
 import { z, ZodEnum } from "zod"
 import { Button } from "@/components/ui/button"
 import CustomFormfield from "../CustomFormfield"
+import { Form } from "../ui/form"
+import { useForm } from "react-hook-form"
 
 
 export enum FormFieldType {
@@ -33,7 +35,7 @@ const PatientForm = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async(values: z.infer<typeof formSchema>) => {
    
     console.log(values)
   }
