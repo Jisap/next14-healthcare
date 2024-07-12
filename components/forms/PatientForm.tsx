@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button"
 import CustomFormfield from "../CustomFormfield"
 import { Form } from "../ui/form"
 import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { UserFormValidation } from "@/lib/validation"
+import SubmitButton from "../SubmitButton"
 
 
 export enum FormFieldType {
@@ -19,23 +22,20 @@ export enum FormFieldType {
   SKELETON = 'skeleton'
 }
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
-
-
 const PatientForm = () => {
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
-  })
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async(values: z.infer<typeof formSchema>) => {
+  const form = useForm<z.infer<typeof UserFormValidation>>({  // Formulario validado por UserFormValidation
+    resolver: zodResolver(UserFormValidation),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
    
     console.log(values)
   }
@@ -50,7 +50,7 @@ const PatientForm = () => {
           <h1 className="header">Hi there 👋</h1>
           <p className="text-dark-700">Get started with appointments.</p>
         </section>
-        
+
         <CustomFormfield 
           fieldType={FormFieldType.INPUT}
           control={form.control}
@@ -78,7 +78,7 @@ const PatientForm = () => {
           placeholder="(555) 123-4567"
         />
 
-        <Button type="submit">Submit</Button>
+        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   )
