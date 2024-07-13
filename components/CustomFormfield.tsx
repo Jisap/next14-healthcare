@@ -18,6 +18,8 @@ import 'react-phone-number-input/style.css'
 import { E164Number } from "libphonenumber-js"
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select"
+import { Textarea } from "./ui/textarea"
 
 interface CustomProps {
   control: Control<any>,      // Cada campo se registra con react-hook-form usando la prop control -> estado central del formulario
@@ -100,8 +102,37 @@ const RenderField = ({ field, props }: { field:any; props: CustomProps }) => {
         </div>
       );
 
+    case FormFieldType.SELECT:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="shad-select-trigger">
+                <SelectValue placeholder={props.placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent className="shad-select-content">
+              {props.children}
+            </SelectContent>
+          </Select>
+        </FormControl>
+      );
+      
+    case FormFieldType.TEXTAREA:
+      return (
+        <FormControl>
+          <Textarea
+            placeholder={props.placeholder}
+            {...field}
+            className="shad-textArea"
+            disabled={props.disabled}
+          />
+        </FormControl>
+      );  
+
     case FormFieldType.SKELETON:
       return renderSkeleton ? renderSkeleton(field) : null;
+    
     default:
       break;
   }
