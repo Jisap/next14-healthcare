@@ -11,6 +11,7 @@ import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
 import SubmitButton from "../SubmitButton"
 import { useRouter } from "next/navigation"
+import { createUser } from "@/lib/actions/patient-action"
 
 
 export enum FormFieldType {
@@ -47,11 +48,11 @@ const PatientForm = () => {
         phone: values.phone,
       }
       
-      // const newUser = await createUser(userData)
+      const newUser = await createUser(userData)
 
-      // if (newUser) {
-      //   router.push(`/patients/${newUser.$id}/register`);
-      // }
+      if (newUser) {
+        router.push(`/patients/${newUser.$id}/register`);
+      }
 
       console.log(userData);
 
