@@ -48,10 +48,10 @@ const PatientForm = () => {
         phone: values.phone,
       }
       
-      const newUser = await createUser(userData)
+      const newUser = await createUser(userData)            // Creamos un nuevo usuario en bd
 
-      if (newUser) {
-        router.push(`/patients/${newUser.$id}/register`);
+      if (newUser) {                                        // Si es nuevo
+        router.push(`/patients/${newUser.$id}/register`);   // redirect a register con su nuevo id de bd
       }
 
       console.log(userData);
