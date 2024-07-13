@@ -32,7 +32,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
   return (
     <Form {...form}>
-      <form>
+      <form className="flex-1 space-y-12">
         <section className='space-y-4'>
           <h1 className="header">Welcome 👋</h1>
           <p className="text-dark-700">Let us know more about yourself.</p>
@@ -42,6 +42,7 @@ const RegisterForm = ({ user }: { user: User }) => {
           <div className="mb-9 space-y-1">
             <h2 className="sub-header">Personal Information</h2>
           </div>
+        
 
           {/* NAME */}
 
@@ -116,14 +117,59 @@ const RegisterForm = ({ user }: { user: User }) => {
           </div>
 
           {/* Address & Occupation */}
-          <div className="flex flex-col gap-6 xl:flex-row">
 
+          <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormfield
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="address"
+              label="Address"
+              placeholder="14 street, New york, NY - 5101"
+            />
+
+            <CustomFormfield
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="occupation"
+              label="Occupation"
+              placeholder=" Software Engineer"
+            />
           </div>
 
           {/* Emergency Contact Name & Emergency Contact Number */}
-          <div className="flex flex-col gap-6 xl:flex-row">
 
+          <div className="flex flex-col gap-6 xl:flex-row">
+            <CustomFormfield
+              fieldType={FormFieldType.INPUT}
+              control={form.control}
+              name="emergencyContactName"
+              label="Emergency contact name"
+              placeholder="Guardian's name"
+            />
+
+            <CustomFormfield
+              fieldType={FormFieldType.PHONE_INPUT}
+              control={form.control}
+              name="emergencyContactNumber"
+              label="Emergency contact number"
+              placeholder="(555) 123-4567"
+            />
           </div>
+        </section>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Medical Information</h2>
+          </div>
+
+          {/* PRIMARY CARE PHYSICIAN */}
+
+          {/* INSURANCE & POLICY NUMBER */}
+
+          {/* ALLERGY & CURRENT MEDICATIONS */}
+
+          {/* FAMILY MEDICATION & PAST MEDICATIONS */}
+
         </section>
 
 
