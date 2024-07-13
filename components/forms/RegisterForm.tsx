@@ -16,6 +16,7 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '../ui/label';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
+import { FileUploader } from '../FileUploader';
 
 const RegisterForm = ({ user }: { user: User }) => {
 
@@ -243,7 +244,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Identification and Verfication</h2>
+            <h2 className="sub-header">Identification and Verification</h2>
           </div>
 
           <CustomFormfield
@@ -268,17 +269,20 @@ const RegisterForm = ({ user }: { user: User }) => {
             placeholder="123456789"
           />
 
-          {/* <CustomFormfield
+          <CustomFormfield
             fieldType={FormFieldType.SKELETON}
             control={form.control}
             name="identificationDocument"
             label="Scanned Copy of Identification Document"
             renderSkeleton={(field) => (
               <FormControl>
-                <FileUploader files={field.value} onChange={field.onChange} />
+                <FileUploader 
+                  files={field.value} 
+                  onChange={field.onChange} 
+                />
               </FormControl>
             )}
-          /> */}
+          />
         </section>
 
 
