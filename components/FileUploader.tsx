@@ -7,17 +7,17 @@ import { useDropzone } from "react-dropzone";
 import { convertFileToUrl } from "@/lib/utils";
 
 type FileUploaderProps = {
-  files: File[] | undefined;
-  onChange: (files: File[]) => void;
+  files: File[] | undefined;            // Array de files
+  onChange: (files: File[]) => void;    // Función del field que permite cambiar el valor del campo drop
 };
 
 export const FileUploader = ({ files, onChange }: FileUploaderProps) => {
-  
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    onChange(acceptedFiles);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => { // Función memorizada que se activa cuando se sueltan archivos en la zona de arrastrar y soltar.
+    onChange(acceptedFiles);                              // Esta función llama a onChange con los archivos aceptados -> cambia el value del field
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop }); // Se configura el área de arrastrar y soltar.
 
   return (
     <div {...getRootProps()} className="file-upload">
