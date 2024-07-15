@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,6 +21,7 @@ import {
 
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { decryptKey, encryptKey } from '@/lib/utils';
 
 const PasskeyModal = () => {
 
@@ -30,9 +31,41 @@ const PasskeyModal = () => {
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
 
+  const encryptedKey =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("accessKey")
+      : null;
+
   const closeModal = () => {
     setOpen(false);
     router.push("/");
+  };
+
+  useEffect(() => {
+    const accessKey = encryptedKey && decryptKey(encryptedKey);
+
+    if (path)
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
+        setOpen(false);
+        router.push("/admin");
+      } else {
+        setOpen(true);
+      }
+  }, [encryptedKey]);
+
+ 
+  const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+      const encryptedKey = encryptKey(passkey);
+
+      localStorage.setItem("accessKey", encryptedKey);
+
+      setOpen(false);
+    } else {
+      setError("Invalid passkey. Please try again.");
+    }
   };
 
   return (
