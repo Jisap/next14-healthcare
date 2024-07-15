@@ -13,6 +13,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
 
   if (patient) redirect(`/patients/${userId}/new-appointment`); // Si el usuario ya era paciente -> patients para una nueva cita
 
+  // sino erea paciente se tiene que registrar
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">
