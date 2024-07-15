@@ -41,28 +41,29 @@ const PasskeyModal = () => {
     router.push("/");
   };
 
-  useEffect(() => {
-    const accessKey = encryptedKey && decryptKey(encryptedKey);
+  useEffect(() => {                                                           // 2º Cada vez que encrytedKey cambie
+
+    const accessKey = encryptedKey && decryptKey(encryptedKey);               // se desencrypta
 
     if (path)
-      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
-        setOpen(false);
-        router.push("/admin");
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {  // si la contraseña desencriptada = env
+        setOpen(false);                                                       // se cierra el modal
+        router.push("/admin");                                                // redirect a /admin
       } else {
-        setOpen(true);
+        setOpen(true);                                                        // sino se abre el modal
       }
   }, [encryptedKey]);
 
  
-  const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { // 1º se recibe la passkey
     e.preventDefault();
 
-    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-      const encryptedKey = encryptKey(passkey);
+    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {                        // Si coincide con la env
+      const encryptedKey = encryptKey(passkey);                                     // se encrypta  
 
-      localStorage.setItem("accessKey", encryptedKey);
+      localStorage.setItem("accessKey", encryptedKey);                              // y se almacena en localstorage
 
-      setOpen(false);
+      setOpen(false);                                                               // Se cierra el modal
     } else {
       setError("Invalid passkey. Please try again.");
     }
