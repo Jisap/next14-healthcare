@@ -79,34 +79,34 @@ export const getPatient = async (userId: string) => {
 };
 
 export const registerPatient = async ({
-  identificationDocument,
-  ...patient
+  identificationDocument,                 // Documento de identificación 
+  ...patient                              // Datos del paciente
 }: RegisterUserParams) => {
   try {
-    // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
-    let file;
-    if (identificationDocument) {
-      const inputFile =
+    
+    let file;                                                         // Se declara una variable file para almacenar el archivo subido
+    if (identificationDocument) {                                     // Si el documento de identificación esta presente 
+      const inputFile =                                               // se crea un objeto inputFile
         identificationDocument &&
-        InputFile.fromBuffer(
-          identificationDocument?.get("blobFile") as Blob,
-          identificationDocument?.get("fileName") as string
+        InputFile.fromBuffer(                                         // utilizando InputFile.fromBuffer
+          identificationDocument?.get("blobFile") as Blob,            // Este obtiene el contenido del archivo como un Blob.
+          identificationDocument?.get("fileName") as string           // y el nombre del archivo
         );
 
-      file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
+      file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile); // Se llama a storage.createFile para subir el archivo al almacenamiento de AppWrite
     }
 
-    // Create new patient document -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#createDocument
-    const newPatient = await databases.createDocument(
-      DATABASE_ID!,
-      PATIENT_COLLECTION_ID!,
-      ID.unique(),
+    
+    const newPatient = await databases.createDocument(                // Se crea un nuevo documento del paciente en la base de datos:
+      DATABASE_ID!,                                                   // ID de la base de datos.
+      PATIENT_COLLECTION_ID!,                                         // ID de la colección de pacientes
+      ID.unique(),                                                    // Genera un ID único para el documento del paciente
       {
-        identificationDocumentId: file?.$id ? file.$id : null,
-        identificationDocumentUrl: file?.$id
+        identificationDocumentId: file?.$id ? file.$id : null,        // El ID del archivo subido
+        identificationDocumentUrl: file?.$id                          // La URL para ver el archivo subido
           ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
           : null,
-        ...patient,
+        ...patient,                                                   // El resto de los datos del paciente
       }
     );
 
