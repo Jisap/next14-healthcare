@@ -81,7 +81,7 @@ export const getRecentAppointmentList = async () => {
             acc.cancelledCount++;
             break;
         }
-        return acc;
+        return acc; // Después de actualizar acc, es crucial devolverlo para que la próxima iteración reciba el acumulador actualizado.
       },
       initialCounts
     );

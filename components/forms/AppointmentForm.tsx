@@ -22,13 +22,13 @@ const AppointmentForm = ({
   patientId,
   type = "create",
   appointment,
- // setOpen,
+  setOpen,
 }: {
   userId: string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
-  //setOpen?: Dispatch<SetStateAction<boolean>>;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 }) => {
 
   const router = useRouter();
