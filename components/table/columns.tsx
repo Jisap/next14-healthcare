@@ -89,7 +89,7 @@ export const columns: ColumnDef<Appointment>[] = [                            //
             title="Schedule Appointment"
             description="Please confirm the following details to schedule."
           />
-          <AppointmentModal
+          <AppointmentModal                                                     // AppointmentModal -> AppointmentForm type cancel -> CustomFormfield -> updateAppointment 
             patientId={appointment.patient.$id}
             userId={appointment.userId}
             appointment={appointment}
