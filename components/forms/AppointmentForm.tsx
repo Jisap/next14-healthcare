@@ -86,24 +86,24 @@ const AppointmentForm = ({
           );
         }
       } else {
-        // const appointmentToUpdate = {
-        //   userId,
-        //   appointmentId: appointment?.$id!,
-        //   appointment: {
-        //     primaryPhysician: values.primaryPhysician,
-        //     schedule: new Date(values.schedule),
-        //     status: status as Status,
-        //     cancellationReason: values.cancellationReason,
-        //   },
-        //   type,
-        // };
+        const appointmentToUpdate = {
+          userId,
+          appointmentId: appointment?.$id!,
+          appointment: {
+            primaryPhysician: values.primaryPhysician,
+            schedule: new Date(values.schedule),
+            status: status as Status,
+            cancellationReason: values.cancellationReason,
+          },
+          type,
+        };
 
-        // const updatedAppointment = await updateAppointment(appointmentToUpdate);
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
 
-        // if (updatedAppointment) {
-        //   setOpen && setOpen(false);
-        //   form.reset();
-        // }
+        if (updatedAppointment) {
+          setOpen && setOpen(false);
+          form.reset();
+        }
       }
     }catch(error) {
       console.log(error);
