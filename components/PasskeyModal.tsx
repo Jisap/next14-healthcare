@@ -41,11 +41,11 @@ const PasskeyModal = () => {
     router.push("/");
   };
 
-  useEffect(() => {                                                           // 2º Cada vez que encrytedKey cambie
+  useEffect(() => {                                                           // 2º Cada vez que recuperemos encrytedKey 
 
     const accessKey = encryptedKey && decryptKey(encryptedKey);               // se desencrypta
 
-    if (path)
+    if (path)               // Si existe la url estamos en el lado del client y procedemos a la comprobación y redirect
       if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {  // si la contraseña desencriptada = env
         setOpen(false);                                                       // se cierra el modal
         router.push("/admin");                                                // redirect a /admin
