@@ -36,7 +36,7 @@ export const createAppointment = async (
 //  GET RECENT APPOINTMENTS
 export const getRecentAppointmentList = async () => {
   try {
-    const appointments = await databases.listDocuments(
+    const appointments = await databases.listDocuments(                   // Se recuperan las citas 
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       [Query.orderDesc("$createdAt")]
@@ -62,13 +62,13 @@ export const getRecentAppointmentList = async () => {
     //   documents: appointments.documents,
     // };
 
-    const initialCounts = {
+    const initialCounts = {                                               // Se inicializan los contadores de las citas por estado:
       scheduledCount: 0,
       pendingCount: 0,
       cancelledCount: 0,
     };
 
-    const counts = (appointments.documents as Appointment[]).reduce(
+    const counts = (appointments.documents as Appointment[]).reduce(      // Se utiliza el método reduce para iterar sobre las citas y contar cuántas de ellas están en cada estado
       (acc, appointment) => {
         switch (appointment.status) {
           case "scheduled":
@@ -86,13 +86,14 @@ export const getRecentAppointmentList = async () => {
       initialCounts
     );
 
-    const data = {
-      totalCount: appointments.total,
-      ...counts,
-      documents: appointments.documents,
+    const data = {                                                         // Se prepara el objeto data   
+      totalCount: appointments.total,                                      // que contiene el total de citas 
+      ...counts,                                                           // los contadores por estado 
+      documents: appointments.documents,                                   // y los documentos de citas
     };
 
-    return parseStringify(data);
+    return parseStringify(data);                                           // Se retornan los datos en un formato seguro para JSON, utilizando parseStringify 
+
   } catch (error) {
     console.error(
       "An error occurred while retrieving the recent appointments:",
