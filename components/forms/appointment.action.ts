@@ -50,14 +50,14 @@ export const getRecentAppointmentList = async () => {
 
     const counts = (appointments.documents as Appointment[]).reduce(      // Se utiliza el método reduce para iterar sobre las citas y contar cuántas de ellas están en cada estado
       (acc, appointment) => {
-        switch (appointment.status) {
-          case "scheduled":
-            acc.scheduledCount++;
+        switch (appointment.status) { // Si el status de appointment
+          case "scheduled":           // es "scheduled"  
+            acc.scheduledCount++;     // el acumulador scheduledCount se incrementa en 1
             break;
-          case "pending":
+          case "pending":             // idem
             acc.pendingCount++;
             break;
-          case "cancelled":
+          case "cancelled":           // idem
             acc.cancelledCount++;
             break;
         }

@@ -53,6 +53,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <div className="data-table">
       <Table className="shad-table">
         
+        {/* Header */}
         <TableHeader className=" bg-dark-200">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow 
@@ -75,6 +76,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           ))}
         </TableHeader>
         
+        {/* Body */}
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
@@ -101,6 +103,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       </Table>
 
       <div className="table-actions">
+        {/* Pagination */}
         <Button
           variant="outline"
           size="sm"
